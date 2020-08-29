@@ -35,7 +35,7 @@ def main():
     end_page = round(end_page / 48)
 
     if end_page > 21:
-        end_page = 22
+        end_page = 21
 
     driver.quit()
 
@@ -56,26 +56,28 @@ def main():
                     rank = ((j - 1) * 48) + i
                     if j > 1:
                         print('')
-                    print(f'Found! Rank: {rank} | On page: {j}\n')
+                    print(f'Found! Rank: {rank} | On page: {j}')
+                    break
+                elif i == 48 and j == (end_page - 1):
+                    print(f'\nNot found with in {j} pages. Try to improve your gig impressions')
                     break
                 elif i == 48:
                     print(f'Not found in page {j}')
+
             except NoSuchElementException:
                 pass
+        if i == 48 and j == (end_page - 1):
+            break
 
         if usrnam == username:
             break
         else:
             driver.quit()
             time.sleep(1)
-        if j == end_page:
-            if usrnam == username:
-                print('Not found in 21 pages. Try to improve your gig impressions')
-
 
     driver.close()
 
-    print('Developr: github.com/s4gor')
+    print('\nDevelopr: github.com/s4gor')
 
     input('\nPress any key to exit ')
 
