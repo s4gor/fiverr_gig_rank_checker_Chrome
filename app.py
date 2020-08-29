@@ -3,13 +3,13 @@
 from selenium import webdriver
 from selenium.webdriver.chrome import service
 from selenium.common.exceptions import NoSuchElementException
-from time import sleep
+import time
 import urllib.parse
 
 service = service.Service('/home/imran/Desktop/selenium/chromedriver')
 
 
-def search(keyword, page = 1):
+def search(keyword, page=1):
     keyword = urllib.parse.quote(keyword)
     return f'https://www.fiverr.com/search/gigs?query={keyword}&source=top-bar&search_in=everywhere&search-autocomplete-original-term={keyword}&page={page}&offset=-5'
 
@@ -25,7 +25,6 @@ def main():
         start_page = 1
 
     start_page = int(start_page)
-
     driver = webdriver.Chrome(service=service)
     driver.minimize_window()
     driver.get(search(kywrd))
@@ -36,16 +35,18 @@ def main():
     end_page = round(end_page / 48)
 
     if end_page > 21:
-        page = 21
+        end_page = 21
 
     driver.quit()
 
-    sleep(1)
+    time.sleep(1)
 
     for j in range(start_page, end_page):
         driver = webdriver.Chrome(service=service)
         driver.minimize_window()
+        start_time = time.time()
         driver.get(search(kywrd, j))
+        print(f'Page loaded in {round(time.time() - start_time, 2)} seconds')
 
         for i in range(1, 49):
             try:
@@ -66,9 +67,14 @@ def main():
             break
         else:
             driver.quit()
-            sleep(1)
-    input('Press any key to exit ')
+            time.sleep(1)
+
+
     driver.close()
+
+    print('Developr: github.com/s4gor')
+
+    input('\nPress any key to exit ')
 
 
 if __name__ == '__main__':
