@@ -35,7 +35,7 @@ def main():
     end_page = round(end_page / 48)
 
     if end_page > 21:
-        end_page = 21
+        end_page = 22
 
     driver.quit()
 
@@ -68,6 +68,9 @@ def main():
         else:
             driver.quit()
             time.sleep(1)
+        if j == end_page:
+            if usrnam == username:
+                print('Not found in 21 pages. Try to improve your gig impressions')
 
 
     driver.close()
