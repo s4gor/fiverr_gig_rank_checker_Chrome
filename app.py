@@ -25,6 +25,7 @@ def main():
         start_page = 1
 
     start_page = int(start_page)
+    first_loader = time.time()
     driver = webdriver.Chrome(service=service)
     driver.minimize_window()
     driver.get(search(kywrd))
@@ -75,7 +76,18 @@ def main():
             driver.quit()
             time.sleep(1)
 
+    last_loader = time.time()
+
     driver.close()
+
+    hr = last_loader - first_loader
+
+    scnd = round(hr % 60)
+
+    mnte = round((hr - scnd) / 60)
+
+
+    print(f'\nTime: {mnte} minutes {scnd} seconds')
 
     print('\nDevelopr: github.com/s4gor')
 
